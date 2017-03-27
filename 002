@@ -1,0 +1,85 @@
+class Solution {
+public:
+	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+		ListNode* t1 = l1;
+		ListNode* t2 = l2;
+		int cf = 0;
+		ListNode* Temp;
+		if ((t1->val + t2->val) >= 10) {
+			Temp = new ListNode((t1->val + t2->val) % 10);
+			cf = 1;
+		}
+		else
+			Temp=new ListNode(t1->val + t2->val);
+		ListNode* s = Temp;
+		while (t1->next&&t2->next) {
+			t1 = t1->next;
+			t2 = t2->next;
+			if ((t1->val + t2->val+cf) >= 10) {
+				ListNode* temp = new ListNode((t1->val+t2->val+cf)%10);
+				s->next = temp;
+				s = s->next;
+				cf = 1;
+			}
+			else {
+				ListNode* temp = new ListNode((t1->val + t2->val)+ cf);
+				s->next = temp;
+				s = s->next;
+				cf = 0;
+			}
+		}
+
+		if (cf == 0) {				//如果没有进位的情况
+			while (t1->next) {
+				s->next = t1->next;
+				s = s->next;
+				t1 = t1->next;
+			}
+			while (t2->next) {
+				s->next = t2->next;
+				s = s->next;
+				t2 = t2->next;
+			}
+		}
+		//带有进位的情况
+		else {
+			while (t1->next) {
+				if (t1->next->val + cf < 10) {
+					s->next = t1->next;
+					s = s->next;
+					s->val = s->val + cf;
+					t1 = t1->next;
+					cf = 0;
+				}
+				else {
+					s->next = t1->next;
+					s = s->next;
+					s->val = 0;
+					t1 = t1->next;
+					cf = 1;
+				}
+			}
+			while (t2->next) {
+				if (t2->next->val + cf < 10) {
+					s->next = t2->next;
+					s = s->next;
+					s->val = s->val + cf;
+					t2 = t2->next;
+					cf = 0;
+				}
+				else {
+					s->next = t2->next;
+					s = s->next;
+					s->val = 0;
+					t2 = t2->next;
+					cf = 1;
+				}
+			}
+			if (cf == 1) {
+				ListNode* p = new ListNode(1);
+				s->next = p;
+			}
+		}
+		return Temp;
+	}
+};

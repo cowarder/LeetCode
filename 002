@@ -29,7 +29,9 @@ public:
 			}
 		}
 
-		if (cf == 0) {				//如果没有进位的情况
+		
+		//If there is carry
+		if (cf == 0) {
 			while (t1->next) {
 				s->next = t1->next;
 				s = s->next;
@@ -41,7 +43,7 @@ public:
 				t2 = t2->next;
 			}
 		}
-		//带有进位的情况
+		//If there isn't carry
 		else {
 			while (t1->next) {
 				if (t1->next->val + cf < 10) {

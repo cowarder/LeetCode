@@ -1,0 +1,41 @@
+At first,I thought there were only letters in the string,the algorithm is as follows:
+
+class Solution {
+public:
+	int lengthOfLongestSubstring(string s) {
+		vector<vector<int>> a(26);
+		int maxLength = 0;
+		int i = 0;
+		int f = 0;
+		while (a[s[f] - 'a'].size() == 0 ) {
+			a[s[f] - 'a'].push_back(i);
+			maxLength++;
+			f++;
+			if (f >= s.length())
+				break;
+		}
+		for (int u = 0; u < f; u++)
+			a[s[u] - 'a'].resize(0);
+
+		i = f;
+		int p = 0;
+		while (i <s.length()) {
+			if (a[s[i] - 'a'].size() == 0) {
+				a[s[i] - 'a'].push_back(i);
+				p++;
+				if (p > maxLength)
+					maxLength = p;
+			}
+			else {
+				p = 1;
+				if (i - a[s[i] - 'a'][0] > maxLength)
+					maxLength = i - a[s[i] - 'a'][0];
+				for (int j = 0; j < i; j++)
+					a[s[j] - 'a'].resize(0);
+				a[s[i] - 'a'].push_back(i);
+			}
+			i++;
+		}
+		return maxLength;
+	}
+};

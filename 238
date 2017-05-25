@@ -1,0 +1,37 @@
+Product of Array Except Self
+
+
+description:
+Given an array of n integers where n > 1, nums, return an array output such that output[i] 
+is equal to the product of all the elements of nums except nums[i].
+
+Solve it without division and in O(n).
+
+For example, given [1,2,3,4], return [24,12,8,6].
+
+
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> T;
+        if(nums.size()==2){
+            int t=nums[0];
+            nums[0]=nums[1];
+            nums[1]=t;
+            return nums;
+        }
+        int p=1;
+        T.push_back(1);
+        for(int i=1;i!=nums.size();i++){
+            p*=nums[i-1];
+            T.push_back(p);
+        }
+        p=1;
+        for(int j=nums.size()-2;j>=0;j--){
+            p*=nums[j+1];
+            T[j]*=p;
+        }
+        return T;
+    }
+};

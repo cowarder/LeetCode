@@ -63,23 +63,22 @@ public:
 
 
 
-A excellent sollution
+the last solution：
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        
-        map<char, int> charMap;
-        int start = -1;
-        int maxLen = 0;
-        
-        for (int i = 0; i < s.size(); i++) {
-            if (charMap.count(s[i]) != 0) {
-                start = max(start, charMap[s[i]]);
-            }
-            charMap[s[i]] = i;
-            maxLen = max(maxLen, i-start);
-        }
-        
-        return maxLen;
-    }
+	int lengthOfLongestSubstring(string s) {
+		map<char, int> p;
+		if (s.length() == 0)
+			return 0;
+		int maxLength = 1;
+		int start = 0;
+		for (int i = 0; i != s.length(); i++) {
+			if (p.count(s[i]) != 0) 
+				start = max(p[s[i]] + 1,start);
+            maxLength = max(maxLength, i - start+1);
+			p[s[i]] = i; 
+		}
+		return maxLength;
+	}
 };

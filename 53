@@ -1,0 +1,19 @@
+//53.cpp
+
+class Solution {
+public:
+	int maxSubArray(vector<int>& nums) {
+		int maxNum, presentNum;
+		maxNum = presentNum = 0;
+		for (int i = 0; i != nums.size(); i++) {
+			presentNum += nums[i];
+			if (presentNum>maxNum)
+				maxNum = presentNum;
+			else if (presentNum<0)
+				presentNum = 0;
+		}
+		if (maxNum <= 0)
+			maxNum =*max_element(begin(nums),end(nums));
+		return maxNum;
+	}
+};

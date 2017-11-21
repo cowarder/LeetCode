@@ -1,0 +1,60 @@
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+
+/*
+	思路：首先判断是否数组中只有一个元素，如果是的话返回
+	这个元素。然后需要从数组中找出最长的字符串，如果数组
+	中全为空串的话，返回空串，分别以maxstr和maxsize记录
+	最长字符串及其长度，由最长串的第一个子串向后推进，遍
+	历每一个字符串，判断是否是以子串开头的，如果出现不是
+	的情况，返回当前目标串的前n-1个字符组成的串
+
+	s,substr(a,b)函数获取下标a开始到b结束的子串，不包括b
+	这个题目需要考虑到字符串数组中都是一样的值，则不会出
+	现while循环终止的情况，所以最后要判断cursize是否大于
+	maxsize
+*/
+
+class Solution {
+public:
+	string longestCommonPrefix(vector<string>& strs) {
+		if (strs.size() == 1)
+			return strs[0];
+		string maxstr = "";
+		int maxsize = 0;
+		for (int i = 0; i < strs.size(); i++) 
+			if (strs[i].size() > maxsize) {
+				maxsize = strs[i].size();
+				maxstr = strs[i];
+			}
+		if (maxsize == 0)
+			return maxstr;
+		int cursize = 1;
+		string curstr = "";
+		while (cursize<=maxsize) {
+			curstr = maxstr.substr(0, cursize);
+			for (int i = 0; i < strs.size(); i++) {
+				if (strs[i].substr(0, cursize) != curstr)
+					if (cursize == 1)
+						return "";
+					else
+						return curstr.substr(0, cursize - 1);
+			}
+			cursize++;
+		}
+		if (cursize > maxsize)
+			return maxstr;
+				
+
+	}
+};
+
+int main() {
+	vector<string>strs = { "a","a" };
+	Solution s;
+	cout<<s.longestCommonPrefix(strs)<<endl;
+	return 0;
+
+}

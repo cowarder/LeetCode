@@ -1,3 +1,7 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
 /*
 	思路：vector自带的erase函数删除一个元素之后
 	会返回这个元素之后的元素迭代器，所以在删除
@@ -20,3 +24,11 @@ public:
 		return nums.size();
 	}
 };
+
+int main() {
+	vector<int>a = { 3,3 };
+	Solution s;
+	s.removeElement(a,3);
+	return 0;
+
+}

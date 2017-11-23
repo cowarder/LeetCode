@@ -1,0 +1,22 @@
+/*
+	思路：vector自带的erase函数删除一个元素之后
+	会返回这个元素之后的元素迭代器，所以在删除
+	之后迭代器不再向后移动，而判断不删除就将迭
+	代器向后移动一个位置
+*/
+class Solution {
+public:
+	int removeElement(vector<int>& nums, int val) {
+		for (vector<int>::iterator iter = nums.begin(); iter != nums.end(); ) {
+			if (*iter == val) {
+				iter=nums.erase(iter);
+				
+			} else
+				iter++;
+				
+		}
+		for (int x : nums)
+			cout << x << endl;
+		return nums.size();
+	}
+};

@@ -1,0 +1,68 @@
+#include<iostream>
+using namespace std;
+
+ //Definition for singly-linked list.
+ struct ListNode {
+     int val;
+     ListNode *next;
+     ListNode(int x) : val(x), next(NULL) {}
+ };
+
+ /*
+	思路：简单题目，没啥思路，就是将两个有序链表合并
+	但是题目没有给出是按照升序来做还是降序来做，默认
+	使用的是升序，需要注意的就是起始节点为空的情况
+ */
+ class Solution {
+ public:
+	 ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+		 ListNode* head, *tail;
+		 if (l1 == NULL)
+			 return l2;
+		 if (l2 == NULL)
+			 return l1;
+
+		 if (l1->val < l2->val) {
+			 head = new ListNode(l1->val);
+			 tail = head;
+			 l1 = l1->next;
+		 } else {
+			 head = new ListNode(l2->val);
+			 tail = head;
+			 l2 = l2->next;
+		 }
+
+		 while (l1 != NULL&&l2 != NULL) {
+			 if (l1->val < l2->val) {
+				 tail->next = new ListNode(l1->val);
+				 l1 = l1->next;
+				 tail = tail->next;
+			 } else {
+				 tail->next = new ListNode(l2->val);
+				 l2 = l2->next;
+				 tail = tail->next;
+			 }
+		 }
+		 if (l1 != NULL) {
+			 while (l1 != NULL) {
+				 tail->next = new ListNode(l1->val);
+				 tail = tail->next;
+				 l1 = l1->next;
+			 }
+		 } else if (l2 != NULL) {
+			 while (l2 != NULL) {
+				 tail->next = new ListNode(l2->val);
+				 tail = tail->next;
+				 l2 = l2->next;
+			 }
+		 }
+		 return head;
+
+	 }
+ };
+
+int main() {
+	
+	return 0;
+
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+
+class Solution {
+public:
+	int strStr(string haystack, string needle) {
+		if (needle.length() > haystack.size())
+			return -1;
+		for (int i = 0; i <= (haystack.length() - needle.length()); i++) {
+			bool equal = true;
+			for (int j = 0; j < needle.length(); j++) {
+				if (needle[j] != haystack[i + j]) {
+					equal = false;
+					break;
+				}
+			}
+			if (equal == true)
+				return i;
+		}
+		return -1;
+	}
+};
+
+int main() {
+	Solution s;
+	cout << s.strStr("llllll", "ll")<< endl;
+	return 0;
+}

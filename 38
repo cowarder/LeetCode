@@ -1,0 +1,45 @@
+class Solution {
+public:
+	string countAndSay(int n) {
+		if (n <= 0)
+			return "";
+		vector<int> r{ 1 };
+		int len;
+		int num;
+		int sum ;
+		for (int i = 0; i < n - 1; i++) {
+			//for (auto x : r)
+			//	cout << x;
+			cout << endl;
+			len = r.size();
+			num = r[0];
+			sum = 0;
+			for (int j = 0; j < len; j++) {
+				if (r[j] == num) {
+					sum++;
+				}
+				else if (r[j] != num) {
+					r.push_back(sum);
+					r.push_back(num);
+					num = r[j];
+					sum = 1;
+				}
+			}
+			r.push_back(sum);
+			r.push_back(num);
+			r.assign(r.begin()+len, r.end());
+			
+		}
+		
+		
+		string re = "";
+		string t;
+		for (int x : r) {
+			stringstream ss;
+			ss << x;
+			t = ss.str();
+			re=re.append(t);
+		}
+		return re;
+	}
+};
